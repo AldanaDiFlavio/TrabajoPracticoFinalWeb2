@@ -21,21 +21,16 @@
 							$buscarUsuario = "SELECT * FROM cliente WHERE login = '$usuario' ";
 							$usuarioEncontrado = mysqli_query($conexion, $buscarUsuario);
 							if (mysqli_num_rows($usuarioEncontrado) == 1){
-			
 								$mensaje = sprintf("El nombre de usuario ya existe.<br><br>");
-			
 							}
 							else{
-								$insertar = "INSERT INTO cliente (nombre, apellido, calle, nro, cp, localidad, telefono, provincia, pais, login, clave, mail) VALUES('$nombre','$apellido','$calle','$nro','$cp','$localidad','$telefono','$provincia','$pais','$usuario',
-									'$passEncriptada','$mail')";
-								
+								$insertar = "INSERT INTO cliente (nombre, apellido, calle, nro, cp, localidad, telefono, codProv, codPpais, login, clave, mail) 
+											VALUES('$nombre','$apellido','$calle','$nro','$cp','$localidad','$telefono','$provincia','$pais','$usuario', '$passEncriptada','$mail')";
 								if (!mysqli_query($conexion, $insertar)){
 								 	$mensaje = sprintf("Error al crear el usuario.<br>");
 								 }
 						else{
-							
 						 $mensaje = sprintf("<br>Usuario Creado Exitosamente!<br><br>");
-				
 						}
 					}
 				}
@@ -50,53 +45,15 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 		<title>ABCD revistas</title>
-		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<script src="http://code.jquery.com/jquery.js"></script>
 		<link href="css/custom.min.css" rel="stylesheet" media="screen">
-		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> <!-- FOOTER -->	
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<script src="jquery/jquery.js"></script>
 	</head>
 	<body class="container">
 		<!-- BARRA DE NAVEGACION -->
-	    <nav class="navbar navbar-default navbar-fixed-top">
-		  	<div class="container-fluid">
-		    	<div class="navbar-header">
-		      		<a class="navbar-brand" href="index.php">Revistas ABCD</a>
-		    	</div>
-		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		      	<ul class="nav navbar-nav">
-			        <li class="active"><a href="#">Link 1</a></li>
-			        <li><a href="#">Link 2</a></li>
-			        <li class="dropdown">
-			          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Catálogo <span class="caret"></span></a>
-			          	<ul class="dropdown-menu" role="menu">
-				            <li><a href="#">Femeninas</a></li>
-				            <li><a href="#">Masculinas</a></li>
-				            <li><a href="#">Noticias</a></li>
-				            <li><a href="#">Ciencia y tecnología</a></li>
-				            <li><a href="#">Estilo de vida</a></li>
-				            <li><a href="#">Entretenimiento</a></li>
-				            <li><a href="#">Deporte</a></li>
-				            <li><a href="#">Viajes</a></li>
-				            <li><a href="#">Automoción</a></li>
-				            <li><a href="#">Hogar</a></li>
-				            <li><a href="#">Arte</a></li>
-				            <li class="divider"></li>
-				            <li><a href="#" ><p class="text-primary"><b>MAS VENIDIDOS</b></p></a></li>
-				            <li><a href="#" ><p class="text-primary"><b>PUBLICACIONES DESTACADAS</b></p></a></li>
-				            <li><a href="#" ><p class="text-primary"><b>PUBLICACIONES NUEVAS</b></p></a></li>
-			          	</ul>
-			        </li>
-			    </ul>
-		      	<form class="navbar-form navbar-left" role="search">
-			        <div class="form-group">
-			          	<input type="text" class="form-control" placeholder="Buscar...">
-			        </div>
-			        <button type="submit" class="btn btn-default">Buscar</button>
-			    </form>
-			    <button type="submit" class=" navbar-right btn btn-primary">Suscribirse</button>
-		    </div>
-		  </div>
-		</nav>
+	    <?php
+			include 'includes/navbar.html';
+		?>
 			<form class="form-horizontal" action="registro.php" method="POST" id="login">
 				<?php if ($mensaje) { ?>
 					        		<div class="error">
@@ -194,50 +151,9 @@
 	  		</fieldset>
 		</form>
 		<!-- FOOTER -->
-		<footer>
-			<hr size="100%">
-			<div class="row">
-				<div class="col-lg-3">
-					<h5>Revistas ABCD</h5>
-					<p class="text-primary"><a href="#">Empresas</p></a>
-					<p class="text-primary"><a href="#">Noticias</p></a>
-					<p class="text-primary"><a href="#">Trabajar</p></a>
-				</div>
-				<div class="col-lg-3">
-					<h5>Conseguir Aplicacion</h5>
-					<p class="text-primary"><a href="#">IOS</p></a>
-					<p class="text-primary"><a href="#">Android</p></a>
-					<p class="text-primary"><a href="#">Windows 8</p></a>
-					<p class="text-primary"><a href="#">Mac / PC</p></a>
-				</div>
-				<div class="col-lg-3">
-					<h5>Síguenos</h5>
-					<p class="text-primary"><a href="#">Facebook</p></a>
-					<p class="text-primary"><a href="#">Twitter</p></a>
-
-				</div>
-				<div class="col-lg-3">
-					<h5>Centro de ayuda</h5>
-					<p><a href="#">Ayuda</p></a>
-					<p><a href="#">Comprar - FAQ</p></a>
-					<p><a href="#">Mi catalogo - FAQ</p></a>
-					<p><a href="#">Suscripciones y compras</p></a>
-					<p><a href="#">Solución de problemas técnicos</p></a>
-				</div>
-			</div>
-			<hr size="60%">
-			<div class="row">
-				<div class="col-lg-6">
-					<p>© 2014-2016 Revistas ABCD - Todos los derechos reservados</p>
-				</div>
-				<div class="col-lg-6">
-					<p><a href="#">Políticas de privacidad</a> | <a href="#">Términos del servicio</a> | <a href="#">Políticas de reembolso</a></p>
-				</div>
-			</div>
-
-		</footer>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="jquery/jquery-1.10.2.min.js"></script>
+		<?php
+			include 'includes/footer.html';
+		?>
 	</body>
 </html>
 
